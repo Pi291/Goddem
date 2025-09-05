@@ -31,7 +31,7 @@ class NeuralNetwork:
         self.W2 = np.random.randn(hidden_size, output_size) * 0.01
         self.b2 = np.zeros((1, output_size))
 
-#остовляет онли положительные числа
+#оставляет онли положительные числа
     def reul(self, x):
         return np.maximum(0, x)
     
@@ -40,9 +40,9 @@ class NeuralNetwork:
         exp_x = np.exp(x - np.max(x, axis=1, keedims=True))
         return exp_x / np.sum(exp_x, axis=1, keepdims=True)
     
-    def forward(self, x):
+    def forward(self, X):
         #принятие данных
-        self.z1 = np.dot(X, self.W1) + sb1
+        self.z1 = np.dot(X, self.W1) + self.b1
         self.a1 = self.relu(self.z1)
         self.z2 = np.dot(self.a1, self.W2) + self.b2
         self.a2 = self.softmax(self.z2)
@@ -52,4 +52,4 @@ class NeuralNetwork:
     
 
 
-
+#WASAP MABOI
