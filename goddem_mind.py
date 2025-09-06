@@ -51,6 +51,30 @@ class NeuralNetwork:
 #Наказание
     def backward(self, X, y, output, learning_rate):
         m = X.shape[0]
+        dz2 = output - y
+        dw2 = (1 / m) * np.dot(self.a1.T, dz2)
+        db2 = (1 / m) * np.sum(dz2, axis=0, keepdims=True)
+        da1 = np.dot(dz2, self.W2.T)
+        dz1 = da1 * (self.z1 > 0)
+        dw1 = (1 / m) * np.dot(X.T, dz1)
+        db1 = (1 / m) * np.sum(dz1, axis=0, keepdims=True)
+        self.b1 -=learning_rate * db1
+        self.W2 -= learning_rate * dw2
+        self.b2 -= learning_rate * db2
+
+    #работа над ошибками
+    def compte_loss(self, y, otput):
+        m = y.shape[0]
+        log_probs = -np.log(output + 1e-8)
+        loss = np.sum(log_probs * y) / m
+        return loss
+    
+    #астрология
+    def accuracy(self, X, y_true):
+        predictions = self.predict(X)
+        true_labels = np.argmax(y_true, axis=1)
+        acc = np.mean(predictions == true_labels)
+        return acc
         
     
 
