@@ -48,8 +48,10 @@ class NeuralNetwork:
         self.a2 = self.softmax(self.z2)
         return self.a2
     
-
+#Наказание
+    def backward(self, X, y, output, learning_rate):
+        m = X.shape[0]
+        
     
 
 
-#WASAP MABOI
