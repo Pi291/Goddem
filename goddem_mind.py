@@ -1,4 +1,4 @@
-import numpy as np #алгебра
+import numpy as np 
 from tensorflow.keras.datasets import mnist
 
 #импорт данных мнист
@@ -31,13 +31,13 @@ class NeuralNetwork:
         self.W2 = np.random.randn(hidden_size, output_size) * 0.01
         self.b2 = np.zeros((1, output_size))
 
-#оставляет онли положительные числа
-    def reul(self, x):
+    #оставляет онли положительные числа
+    def relu(self, x):
         return np.maximum(0, x)
     
     def softmax(self, x):
         #Вычитаем максмум для точных вычислений
-        exp_x = np.exp(x - np.max(x, axis=1, keedims=True))
+        exp_x = np.exp(x - np.max(x, axis=1, keepdims=True))
         return exp_x / np.sum(exp_x, axis=1, keepdims=True)
     
     def forward(self, X):
@@ -48,7 +48,12 @@ class NeuralNetwork:
         self.a2 = self.softmax(self.z2)
         return self.a2
     
-#Наказание
+    #перевод в циферки
+    def predict(self, X):
+        output = self.forward(X)
+        return np.argmax(output, axis=1)
+    
+    #Наказание
     def backward(self, X, y, output, learning_rate):
         m = X.shape[0]
         dz2 = output - y
@@ -58,12 +63,13 @@ class NeuralNetwork:
         dz1 = da1 * (self.z1 > 0)
         dw1 = (1 / m) * np.dot(X.T, dz1)
         db1 = (1 / m) * np.sum(dz1, axis=0, keepdims=True)
+        self.W1 -= learning_rate * dw1
         self.b1 -=learning_rate * db1
         self.W2 -= learning_rate * dw2
         self.b2 -= learning_rate * db2
 
     #работа над ошибками
-    def compte_loss(self, y, otput):
+    def compute_loss(self, y, output):
         m = y.shape[0]
         log_probs = -np.log(output + 1e-8)
         loss = np.sum(log_probs * y) / m
@@ -76,6 +82,41 @@ class NeuralNetwork:
         acc = np.mean(predictions == true_labels)
         return acc
         
-    
+#Обучение
+nn = NeuralNetwork(784, 128, 10)
+learning_rate = 0.1
+epochs = 50
+batch_size = 64
+num_batches = len(x_train) // batch_size
+
+for epoch in range(epochs):
+    epoch_loss = 0
+    #перемешивание данных
+    indices = np.random.permutation(len(x_train))
+    x_shuffled = x_train[indices]
+    y_shuffled = y_train_one_hot[indices]
+
+    for i in range(num_batches):
+        start_idx = i * batch_size
+        end_idx = start_idx +batch_size
+        x_batch = x_shuffled[start_idx:end_idx]
+        y_batch = y_shuffled[start_idx:end_idx]
+
+        output = nn.forward(x_batch)
+        batch_loss = nn.compute_loss(y_batch, output)
+        epoch_loss += batch_loss
+        nn.backward(x_batch, y_batch, output, learning_rate)
+
+    avg_loss = epoch_loss / num_batches
+    test_acc = nn.accuracy(x_test, y_test_one_hot)
+    print(f"Epoch {epoch+1}/{epoch}, Loss: {avg_loss:.4f}, Test Accuracy: {test_acc:.4f}")
+
+#test
+simple_idx = 0
+simpl_image = x_test[simple_idx].reshape(1, -1)
+prediction = nn.predict(simpl_image)
+print(f"Godden answer: {prediction[0]}")
+print(f"True answer: {y_test[simple_idx]}")
+print(f"Pixsels: {x_test[simple_idx][:10]}")
 
 
