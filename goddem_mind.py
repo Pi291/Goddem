@@ -53,7 +53,7 @@ class NeuralNetwork:
         output = self.forward(X)
         return np.argmax(output, axis=1)
     
-    #Наказание
+    #Вычисление ошибки
     def backward(self, X, y, output, learning_rate):
         m = X.shape[0]
         dz2 = output - y
@@ -64,7 +64,7 @@ class NeuralNetwork:
         dw1 = (1 / m) * np.dot(X.T, dz1)
         db1 = (1 / m) * np.sum(dz1, axis=0, keepdims=True)
         self.W1 -= learning_rate * dw1
-        self.b1 -=learning_rate * db1
+        self.b1 -= learning_rate * db1
         self.W2 -= learning_rate * dw2
         self.b2 -= learning_rate * db2
 
