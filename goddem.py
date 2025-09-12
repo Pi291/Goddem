@@ -215,4 +215,4 @@ async def unmute(ctx, member: discord.Member):
         await ctx.send("Для таких мувов нужна каста повыше")
 
 #токен который никому нельзя говорить
-bot.run("MTQwMjI0NjQxNzQ1OTcwNzkxNg.GLBuJP.qsH7pHTa9EW1RLjLNV7ixFfacX-BFoh3hGazoY")
+bot.run("...")
