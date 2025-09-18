@@ -15,7 +15,7 @@
 //Получаем mime файла
 const char* git_mime_type(const char* path) {
     const char* ext = strrchr(path, '.');
-    if (ext == NULL) {
+    if (ext != NULL) {
         ext++;
     //Подбираем расширение
         if (strcmp(ext, "html") == 0) return "text/html";
@@ -58,7 +58,7 @@ char* read_file(const char* filename, long* size) {
     fclose(file);
     content[*size] = '\0';
     return content;
-}
+    }
 
 
 int main() {
@@ -103,6 +103,7 @@ int main() {
         closesocket(server_fd);
         WSACleanup();
         return 1;
+    }
 
     //Слушаем соеденения
     if (listen(server_fd, 10) == SOCKET_ERROR) {
@@ -209,7 +210,7 @@ int main() {
         //Обрубаем соеденение
         closesocket(client_socket);
         printf("Connected on close\n\n");
-
+        }
     closesocket(server_fd);
     WSACleanup();
     return 0;
