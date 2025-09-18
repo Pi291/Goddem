@@ -56,7 +56,6 @@ char* read_file(const char* filename, long* size) {
     }
     //Закрываем
     fclose(file);
-    content[*size] = '\0';
     return content;
     }
 
