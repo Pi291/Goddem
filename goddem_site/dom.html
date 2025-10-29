@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+          .sub-button{
+            border: none;
+            color: aliceblue;
+            background-color: black;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 15px;
+            padding-right: 15px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-bottom: 30px;
+            margin-top: 30px;
+          }  
+          .subbed-button{
+            border: none;
+            color: black;
+            background-color: rgb(220,220,220);
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 15;
+            padding-right: 15px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-bottom: 30px;
+            margin-top: 30px;
+          }
+          body{
+            font-family: 'Times New Roman', Times, serif;
+          }
+        </style>
+        <title>Dom practice</title>
+    </head>
+    <body>
+        <p>YouTube Subscribe Button</p>
+        <button onclick="
+            Subscribe ();
+        " class="fk-button sub-button">
+        Subscribe
+        </button>
+     <p>Paper Rock Scissors</p>
+        <script>    
+            function Subscribe () {   
+                const Subbutton = document.querySelector('.fk-button');
+                if (Subbutton.innerText === 'Subscribe') {
+                    Subbutton.innerHTML = 'Subscribed';
+                    Subbutton.classList.add('subbed-button');
+                } else {
+                    Subbutton.innerHTML = 'Subscribe';
+                    Subbutton.classList.remove('subbed-button');
+                }
+            }
+        </script>
+    </body>
+
+</html>         

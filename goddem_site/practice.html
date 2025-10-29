@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+ <head> 
+    <title>Paper, rock and scissors</title>
+    <link rel="stylesheet" href="practice-style.css">
+ </head>
+ <body>
+    <p class="title1">Paper Rock Scissors</p>
+    <button onclick="
+      Gameplayed('paper')
+    " class="move-button"><img src="Icons/paper-emoji.png" class="move-icon"></button>
+    <button onclick="
+      Gameplayed('rock')
+    " class="move-button"><img src="Icons/rock-emoji.png" class="move-icon"></button>
+    <button onclick="
+      Gameplayed('scissors')
+    " class="move-button"><img src="Icons/scissors-emoji.png" class="move-icon"></button>
+    <p class="
+    fk-result cs-result">
+    </p>
+    <p class="
+    fk-moves cs-moves">
+    </p>
+    <p class="
+    fk-score cs-score
+    ">
+    <img src="Icons/rock-emoji.png" class="move-icon">
+    <img src="Icons/scissors-emoji.png" class="move-icon">
+   </p>
+    <button onclick="
+      score.Wins = 0;
+      score.Losses = 0;
+      score.Ties = 0;
+      localStorage.removeItem('score');
+      pscore ()
+    " class="res-button">
+   Reset score
+    </button>
+
+    <script src="practice-main.js"></script>
+ </body>
+</html>
